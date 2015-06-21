@@ -15,5 +15,7 @@ void delete(Node** head);
 int deleteat(Node**head, unsigned pos, int* val);
 int countinstance(Node* head, int val);
 int getnth(Node* head, unsigned pos);
+int merge(Node**head1, Node** head2);
+int frontbacksplit(Node** head1, Node** head2);
 
 #endif //__LINKED__LIST__HEADER__

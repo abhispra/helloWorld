@@ -42,7 +42,7 @@ int insert(Node** head, int val, unsigned pos)
 	{
 		if (pos != 0)
 		{
-			printf("Invalid position specified for an empty list");
+			printf("Invalid position specified for an empty list\n");
 			err = -1;
 			goto ERR_EXIT;
 		}
@@ -52,9 +52,14 @@ int insert(Node** head, int val, unsigned pos)
 			newNode->next = NULL;
 		}
 	}
+	else if (pos == 0)
+	{
+		*head = newNode;
+		newNode->next = current;
+	}
 	else
 	{
-		while(current->next != NULL && len != pos -1)
+		while(current != NULL && len != pos -1)
 		{
 			current = current->next;
 			len++;
@@ -66,7 +71,7 @@ int insert(Node** head, int val, unsigned pos)
 		}
 		else
 		{
-			printf("Invalid position(%d) specified", pos);
+			printf("Invalid position(%d) specified\n", pos);
 			err = -1;
 			goto ERR_EXIT;
 		}
@@ -193,5 +198,76 @@ int getnth(Node* head, unsigned pos)
 	{
 		printf("Invalid position specified\n");
 	}
+	return err;
+}
+
+int merge(Node**head1, Node** head2)
+{
+	int err = 0;
+	Node* current = NULL;
+	
+	if (head1 == NULL || head2 == NULL)
+	{
+		printf("Invalid params\n");
+		err = -1;
+		goto ERR_EXIT;
+	}
+
+	current = *head1;
+	while(current->next != NULL)
+	{
+		current = current->next;
+	}
+	current->next = *head2;
+	*head2 = NULL;
+
+ERR_EXIT:
+	return err;
+}
+
+int frontbacksplit(Node** head1, Node** head2)
+{
+	int err = 0;
+	Node* current = NULL;
+	unsigned len = 0, len1 = 0, len2 = 0;
+	
+	if (head1 == NULL || head2 == NULL)
+	{
+		printf("Invalid params\n");
+		err = -1;
+		goto ERR_EXIT;
+	}
+
+	current = *head1;
+	while(current != NULL)
+	{
+		len++;
+		current = current->next;
+	}
+
+	if (len == 1)
+	{
+		printf("Length of list is 1, so cannot split\n");
+		err = -1;
+		goto ERR_EXIT;
+	}
+
+	len1 = len / 2; 
+	if (len % 2)
+	{
+		len1 += 1;
+	}
+
+	current = *head1;
+	while(len2 != len1 - 1)
+	{
+		current = current->next;
+		len2++;
+	}
+
+	*head2 = current->next;
+	current->next = NULL;
+	
+ERR_EXIT:
 	return err;
 }
