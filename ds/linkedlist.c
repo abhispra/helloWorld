@@ -271,3 +271,50 @@ int frontbacksplit(Node** head1, Node** head2)
 ERR_EXIT:
 	return err;
 }
+
+int alternatesplit(Node** head1, Node** head2)
+{
+	int err = 0;
+	unsigned counter = 0;
+	Node* current1 = NULL, *current2 = NULL, *prev1 = NULL;
+
+	if (head1 == NULL || head2 == NULL)
+	{
+		printf("Invalid params\n");
+		err = -1;
+		goto ERR_EXIT;
+	}
+	current1 = *head1;
+
+	if (current1 && current1->next)
+	{
+		*head2 = current2 = current1->next;
+		prev1 = current1;
+		prev1->next = current1->next->next;
+		current1 = prev1->next;
+		counter = 2;
+	}
+	else
+	{
+		printf("List too small to split\n");
+		err = -1;
+		goto ERR_EXIT;
+	}
+
+	while(current1 != NULL)
+	{		
+		if (counter++ % 2 != 0)
+		{
+			prev1->next = current1->next;
+			current2->next = current1;
+			current2 = current2->next;
+		}
+		prev1 = current1;
+		current1 = current1->next;
+		current2->next = NULL;
+		
+	}
+
+ERR_EXIT:
+	return err;
+}

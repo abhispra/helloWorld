@@ -51,17 +51,42 @@ int main(int argc, char* argv[])
 	}
 	print(head);
 	printf("Length of list - %d\n", length(head));
+
 	Node *ptr = NULL;
 	err = frontbacksplit(&head, &ptr);
 	printf("Length of list1 - %d\n", length(head));
 	printf("List1 -->\n");
 	print(head);
+
 	printf("Length of list2 - %d\n", length(ptr));
 	printf("List2 -->\n");
 	print(ptr);
-	err = merge(&head, &ptr);
-	printf("New List after merging with length - %d\n", length(head));
-	print(head);
+
+	if ((err = merge(&head, &ptr)) != 0)
+	{
+		printf("Merge retruned an error %d\n", err);
+	}
+	else
+	{
+		printf("New List after merging with length - %d\n", length(head));
+		print(head);
+	}
+	
+	if ((err = alternatesplit(&head, &ptr)) != 0)
+	{
+		printf("Alternatesplit returned the error %d\n", err);
+	}
+	else
+	{
+		printf("Length of list1 - %d\n", length(head));
+		printf("List1 -->\n");
+		print(head);
+
+		printf("Length of list2 - %d\n", length(ptr));
+		printf("List2 -->\n");
+		print(ptr);
+	}
+	
 	delete(&head);
 	delete(&ptr);
 	return 0;
