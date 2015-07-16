@@ -45,9 +45,7 @@ int initialize(Queue *myQueue, myFree_cb myFree)
   lock(&(myQueue->mutex));
   if (myFree)
   {
-
     myQueue->func = myFree;
-
   }
   else
   {
